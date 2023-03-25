@@ -8,22 +8,11 @@ import {
 import qrcodeTerminal from 'qrcode-terminal'
 import { ChatGPTAPI } from 'chatgpt'
 
-import { Configuration, OpenAIApi } from "openai";
-
 const api_key = process.env.OPENAI_API_KEY
-
-const configuration = new Configuration({
-	apiKey: api_key
-});
-const openai = new OpenAIApi(configuration);
 
 const api = new ChatGPTAPI({
 	apiKey: api_key
 })
-
-const res = await api.sendMessage('Hello World!')
-console.log(res.text)
-
 
 const default_magic_word = "chatbot"
 var magic_word = default_magic_word
@@ -86,7 +75,6 @@ async function onMessage (msg) {
         await msg.say(response)
     }
    else if (msg.text().includes(magic_word)) {
-		//const response = await sendMessageToOpenAI(msg.text());
 		const response = await sendMessageToChatGPT(generatePrompt(msg.text().replace(magic_word, "")))
         log.info("send_back " + response)
 		await msg.say(response + "\n from ChatGPT")
@@ -100,22 +88,6 @@ function generatePrompt(message) {
 async function sendMessageToChatGPT(msg){
 	const res = await api.sendMessage(msg)
 	return res.text
-}
-
-async function sendMessageToOpenAI(msg){
-	try {
-		const completion = await openai.createCompletion({
-			model: "text-davinci-003",
-			prompt: generatePrompt(msg),
-			temperature: 0,
-			max_token:4096
-		});
-		console.log(completion.data.choices[0]);
-		return completion.data.choices[0].text;
-	} catch(error) {
-		if (error.response) return `Error with OpenAI API request failed with status code ${error.response.status}, data ${error.response.data}`;
-		else return `Error with OpenAI API request: ${error.message}`;
-	}
 }
 
 const bot = WechatyBuilder.build({
