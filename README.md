@@ -43,3 +43,8 @@ https://user-images.githubusercontent.com/6205873/227682615-030d7da9-f8b3-4490-8
 + manage your `magic_word` with login account
 + [23/03/26 update] add speech support.
 
+
+### Sponsor to accelerate image query :)
+
+![1201679838028_ pic](https://user-images.githubusercontent.com/6205873/227779728-d035e6a3-d142-49da-be9d-e69b405a396a.jpg)
+
