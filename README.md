@@ -4,7 +4,7 @@ OpenAI/ChatGPT + Wechaty for wechat robot, add magic word to protect
 
 ### Install & Run
 
-Install latest nodejs >= 18 from [here](https://nodejs.org/en), clone the repo to local.
+Install latest nodejs >= 18 from [here](https://nodejs.org/en) and [Google chrome browser](https://www.google.com/chrome/dr/download/?brand=SLLM&geo=US&gclid=Cj0KCQjw2v-gBhC1ARIsAOQdKY3Al65EEor65A0lcNrnK69kC8T2hk5XKB-pQ88Uts3ZJhBvS_GAC18aAlhREALw_wcB&gclsrc=aw.ds)(to support `wechaty-puppet-wechat`), clone the repo to local.
 
 ```
 git clone https://github.com/gfl94/Chatbot004.git && cd Chatbot004
@@ -41,4 +41,5 @@ https://user-images.githubusercontent.com/6205873/227682615-030d7da9-f8b3-4490-8
 + send the whole sentence to ChatGPT, and send back the response
 + add `magic_word` in your chat to avoid too many noise, when the message received contains the `magic_word`, then send to ChatGPT
 + manage your `magic_word` with login account
++ [23/03/26 update] add speech support.
 
