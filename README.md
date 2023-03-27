@@ -45,7 +45,7 @@ https://user-images.githubusercontent.com/6205873/227682615-030d7da9-f8b3-4490-8
 
 ### Important
 
-+ 项目中使用的 Wechaty 由于其项目本身原因，有被**微信封号**的风险，请在明确风险的情况下使用！
++ 项目中使用的 Wechaty 由于其项目本身原因，有被**微信封号**的风险，请在明确风险的情况下使用！！
 
 
 ### Wechat group for testing (欢迎进群来撩:)
