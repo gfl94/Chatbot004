@@ -66,14 +66,14 @@ function onLogout (user) {
 	log.info('GPTBot', '%s logout', user)
 }
 
-async function sendBack(contact, message, msgId) {
-    log.info`send_back [${msgId}] ${message}`
+async function sendBack(contact, msgId, message) {
+    log.info(`send_back [${msgId}] ${message}`)
     try {
         await contact.say(message);
     } catch (e) {
-        log.error`${msgId} say back error ${e}`
+        log.error(`${msgId} say back error ${e}`)
     }
-} 
+}
 
 async function onMessage (msg) {
     log.info(`onMessage [${msg.id}] msg ${msg.toString()}`);
@@ -83,14 +83,14 @@ async function onMessage (msg) {
     const content = msg.text()
 
     if (content == 'ding') {
-        await sendBack(msg, "dong", msg.id)
+        await sendBack(msg, msg.id, "dong")
     } else if (content == "debug" && is_admin_user(talker.name()) ) {
-        await sendBack(msg, `magic word: ${magic_word}\nadmin user: ${admin_username}`, msg.id)
+        await sendBack(msg, msg.id, `magic word: ${magic_word}\nadmin user: ${admin_username}`)
     }
-    else if (is_admin_user(msg.talker().name()) && content.includes("change magic word ")) {
+    else if (is_admin_user(talker.name()) && content.includes("change magic word ")) {
         const new_magic_word = content.replace("change magic word ", "")
         update_magic_word(new_magic_word)
-        await sendBack(msg, `updated magic word to ${new_magic_word}`, msg.id)
+        await sendBack(msg, msg.id `updated magic word to ${new_magic_word}`)
     }
 
     if (room) {
@@ -99,25 +99,32 @@ async function onMessage (msg) {
         if ((topic.includes("GPT test") /*|| topic == "ChatGPT语音测试"*/)){
             if (msg.type() == bot.Message.Type.Text && content.includes(magic_word)) {
                 const response = await sendMessageToChatGPT(generatePrompt(content.replace(magic_word, "")))
-                await sendBack(room, `${talker} ${response} \n from ChatGPT`, msg.id)
+                await sendBack(room, msg.id, `${response} \n from ChatGPT`)
             } else if (msg.type() == bot.Message.Type.Audio) {
                 const fileBox = await msg.toFileBox();
-                const readStream = await fileBox.toStream();
+
+                const fileName =  "voice_tmp/" + fileBox.name;
+                if (fs.existsSync(fileName)) {
+                    log.info(`[${msg.id}][onVoice] voice file already exists, skip`);
+                    return;
+                }
+                await fileBox.toFile( fileName, true);
+                const readStream = await fs.createReadStream(`${fileName}`);
+                //const readStream = await fileBox.toStream();
                 const response = await openai.createTranscription(
                     readStream,
                     "whisper-1"
                 );
                 if (response.data.text != undefined) {
                     const sentence = response.data.text;
-        
+
                     if (sentence.includes("笨笨") || sentence.includes("本本") ) {
                         var words = sentence.replace("笨笨", "").replace("本本", "");
                         const chat_response = await sendMessageToChatGPT(words);
-                        log.info("send_back " + chat_response);
-                        await msg.say(`${chat_response} \n from ChatGPT`, msg.talker())
+                        sendBack(room, msg.id, `${chat_response} \n from ChatGPT`);
                     } else {
                         log.info(`[${msg.id}][onVoice] output sentence from openai is ${sentence}`);
-                        msg.room().say(`your message is "${sentence}" \n\n\n    from ChatGPT语音模型, 请在语音内容里加上"笨笨"召唤ChatGPT给你回答`, msg.talker());
+                        sendBack(room, msg.id, `your message is '${sentence}' \n\n\n from ChatGPT语音模型，请在语音内容里加上'笨笨'召唤ChatGPT给你回答`);
                     }
                 } else {
                     log.info(`[${msg.id}][onVoice] trying to print error ${response.data.error}`);
