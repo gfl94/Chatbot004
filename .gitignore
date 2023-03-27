@@ -1,2 +1,4 @@
 .env
 node_modules/
+chatbot.memory-card.json
+package-lock.json
