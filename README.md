@@ -26,7 +26,7 @@ OPENAI_API_KEY="sk-xxxx"
 Run the program and scan your QR code with your wechat.
 
 ```
-npm run
+npm start
 ```
 
 
@@ -42,6 +42,15 @@ https://user-images.githubusercontent.com/6205873/227682615-030d7da9-f8b3-4490-8
 + add `magic_word` in your chat to avoid too many noise, when the message received contains the `magic_word`, then send to ChatGPT
 + manage your `magic_word` with login account
 + [23/03/26 update] add speech support.
+
+### Important
+
++ 项目中使用的 Wechaty 由于其项目本身原因，有被**微信封号**的风险，请在明确风险的情况下使用！
+
+
+### Wechat group for testing (欢迎进群来撩:)
+
+![1231679931765_ pic](https://user-images.githubusercontent.com/6205873/227992715-1632d4c4-087b-4fa6-bdde-06600714132c.jpg)
 
 
 ### Sponsor to accelerate image query :)
