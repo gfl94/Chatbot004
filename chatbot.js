@@ -96,7 +96,7 @@ async function onMessage (msg) {
     if (room) {
         const topic = await room.topic();
 
-        if ((topic.includes("GPT test") /*|| topic == "ChatGPT语音测试"*/)){
+        if ((topic.includes("GPT test") || topic == "ChatGPT语音测试")){
             if (msg.type() == bot.Message.Type.Text && content.includes(magic_word)) {
                 const response = await sendMessageToChatGPT(generatePrompt(content.replace(magic_word, "")))
                 await sendBack(room, msg.id, `${response} \n from ChatGPT`)
