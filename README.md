@@ -48,12 +48,3 @@ https://user-images.githubusercontent.com/6205873/227682615-030d7da9-f8b3-4490-8
 + 项目中使用的 Wechaty 由于其项目本身原因，有被**微信封号**的风险，请在明确风险的情况下使用！！！
 
 
-### Wechat group for testing (欢迎进群来撩:)
-
-![1231679931765_ pic](https://user-images.githubusercontent.com/6205873/227992715-1632d4c4-087b-4fa6-bdde-06600714132c.jpg)
-
-
-### Sponsor to accelerate image query :)
-
-![1201679838028_ pic](https://user-images.githubusercontent.com/6205873/227779728-d035e6a3-d142-49da-be9d-e69b405a396a.jpg)
-
